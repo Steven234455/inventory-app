@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventory & Stock Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 600px;
+      padding: 30px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      text-align: center;
+      padding: 10px;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    .delete-btn {
+      background-color: #ff4d4d;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Inventory & Stock Management</h2>
+    <input type="text" id="productName" placeholder="Product Name" />
+    <input type="number" id="quantity" placeholder="Quantity" />
+    <input type="number" id="price" placeholder="Price" />
+    <button onclick="addProduct()">Add Product</button>
+
+    <table id="productTable">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const productTable = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+
+    function addProduct() {
+      const name = document.getElementById('productName').value;
+      const qty = document.getElementById('quantity').value;
+      const price = document.getElementById('price').value;
+
+      if (name === '' || qty === '' || price === '') {
+        alert('Please fill all fields!');
+        return;
+      }
+
+      const row = productTable.insertRow();
+      row.insertCell(0).innerText = name;
+      row.insertCell(1).innerText = qty;
+      row.insertCell(2).innerText = price;
+
+      const deleteCell = row.insertCell(3);
+      const deleteBtn = document.createElement('button');
+      deleteBtn.innerText = '🗑';
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.onclick = () => row.remove();
+      deleteCell.appendChild(deleteBtn);
+
+      document.getElementById('productName').value = '';
+      document.getElementById('quantity').value = '';
+      document.getElementById('price').value = '';
+    }
+  </script>
+</body>
+</html>

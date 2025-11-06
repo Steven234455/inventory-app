@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="card p-4 shadow">
+      <h2 class="text-center mb-3">Login</h2>
+      <form id="loginForm">
+        <div class="mb-3">
+          <label>Username</label>
+          <input type="text" id="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label>Password</label>
+          <input type="password" id="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Login</button>
+      </form>
+      <p class="text-center mt-3">Don’t have an account? <a href="register.html">Register here</a></p>
+    </div>
+  </div>
+
+  <!-- Paste this script before </body> -->
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const response = await fetch("http://localhost:5000/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (response.ok) {
+    alert("Login successful!");
+    window.location.href = "dashboard.html"; // 👈 redirect here
+  } else {
+    alert("Invalid username or password");
+  }
+});
+
+  </script>
+</body>
+</html>
